@@ -47,6 +47,7 @@ export const ProductList = () => {
         {
             <>
             <button   onClick={() => { setTopPriced(true) } } >Top Priced</button>
+
             <button   onClick={() => { setTopPriced(false) } } >All Prices</button>
             </>
         }
