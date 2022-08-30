@@ -52,11 +52,8 @@ export const ProductList = () => {
         }
         {
             kandyUserObject.staff
-            ?<>
+            ?
             <button   onClick={() => navigate("/product/create") } >Create Product</button>
-
-            
-            </>
             :""
         }
         <h2>List of Products</h2>
