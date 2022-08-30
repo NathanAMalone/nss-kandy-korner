@@ -10,12 +10,16 @@ export const ProductList = () => {
 
     const localKandyUser = localStorage.getItem("kandy_user")
     const kandyUserObject = JSON.parse(localKandyUser)
+    const navigate = useNavigate()
 
     useEffect(
         () => {
             if (topPriced) {
                 const topPricedProducts = products.filter(product => product.productPrice > 2)
                 setFiltered(topPricedProducts)
+            }
+            else{
+                setFiltered(products)
             }
         },
         [topPriced]
@@ -34,23 +38,26 @@ export const ProductList = () => {
 
     useEffect(
         () => {
-            if (kandyUserObject.staff) {
                 setFiltered(products)
-            }
         },
         [products]
     )
 
     return <>
         {
-            kandyUserObject.staff
-            ?<>
+            <>
             <button   onClick={() => { setTopPriced(true) } } >Top Priced</button>
-            
-            <h2>List of Products</h2>
+
+            <button   onClick={() => { setTopPriced(false) } } >All Prices</button>
             </>
-            :<h2>Access Denied: Employees Only</h2>
         }
+        {
+            kandyUserObject.staff
+            ?
+            <button   onClick={() => navigate("/product/create") } >Create Product</button>
+            :""
+        }
+        <h2>List of Products</h2>
             <article className="products">
             {
                 filteredProducts.map(
