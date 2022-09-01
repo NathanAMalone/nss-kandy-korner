@@ -28,27 +28,6 @@ export const ProductForm = () => {
         },
         []
     )
-    
-    //     return <>
-    //         <option value='0'>Select Type...</option>
-    //                 {
-    //                     productTypes.map(
-    //                         (productType) => {
-    //                             return <option
-    //                                 value={productType.id}
-    //                                 onChange={
-    //                                 (evt) => {
-    //                                 const copy = {...productTypes}
-    //                                 copy.id = evt.target.value
-    //                                 update(copy)
-    //                                 }
-    //                                 } >{productType.candyCategory}
-    //                             </option>
-    //                         }
-    //                     )
-    //                 }
-    //     </>
-    // }
     /*
         TODO: Use the useNavigation() hook so you can redirect
         the user to the product list

@@ -6,7 +6,6 @@ export const ProductList = () => {
     const [products, setProducts] = useState([])
     const [filteredProducts, setFiltered] = useState([])
     const [topPriced, setTopPriced] = useState(false)
-    const [productTypes, setProductType] = useState([])
 
 
     const localKandyUser = localStorage.getItem("kandy_user")
@@ -14,16 +13,7 @@ export const ProductList = () => {
     const navigate = useNavigate()
 
     
-    useEffect(
-        () => {
-            fetch("http://localhost:8088/productTypes")
-                .then(response => response.json())
-                .then((locationArray) => {
-                    setProductType(locationArray)
-                })
-        },
-        []
-    )
+ 
     
     useEffect(
         () => {
@@ -77,14 +67,7 @@ export const ProductList = () => {
                         return <section className="product" key={`product--${product.id}`}>
                             <div>Name: {product.productName}</div>
                             <div>Price: {product.productPrice}</div>
-                            {
-                                productTypes.map((productType) => {
-                                    if (product.productTypeId === productType.id)
-                                    return <div key={`productType--${productType.id}`}>
-                                        Category: {productType.candyCategory}</div>
-                                })
-                            }
-                            
+                            <div>Category: {product.productType.candyCategory} </div>
                         </section>
                     }
                 )
