@@ -6,12 +6,25 @@ export const ProductList = () => {
     const [products, setProducts] = useState([])
     const [filteredProducts, setFiltered] = useState([])
     const [topPriced, setTopPriced] = useState(false)
+    const [productTypes, setProductType] = useState([])
 
 
     const localKandyUser = localStorage.getItem("kandy_user")
     const kandyUserObject = JSON.parse(localKandyUser)
     const navigate = useNavigate()
 
+    
+    useEffect(
+        () => {
+            fetch("http://localhost:8088/productTypes")
+                .then(response => response.json())
+                .then((locationArray) => {
+                    setProductType(locationArray)
+                })
+        },
+        []
+    )
+    
     useEffect(
         () => {
             if (topPriced) {
@@ -64,10 +77,17 @@ export const ProductList = () => {
                         return <section className="product" key={`product--${product.id}`}>
                             <div>Name: {product.productName}</div>
                             <div>Price: {product.productPrice}</div>
-                            <div>Category: {product.productType.candyCategory}</div>
+                            {
+                                productTypes.map((productType) => {
+                                    if (product.productTypeId === productType.id)
+                                    return <div key={`productType--${productType.id}`}>
+                                        Category: {productType.candyCategory}</div>
+                                })
+                            }
+                            
                         </section>
                     }
-                    )
+                )
             }
         </article>
     </>
