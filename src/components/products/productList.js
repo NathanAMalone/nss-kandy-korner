@@ -69,12 +69,23 @@ export const ProductList = ({ searchTermState }) => {
         <h2>List of Products</h2>
             <article className="products">
             {
+                kandyUserObject.staff
+                ?
                 filteredProducts.map(
                     (product) => {
                         return <section className="product" key={`product--${product.id}`}>
                             <div>Name: {product.productName}</div>
                             <div>Price: {product.productPrice}</div>
                             <div>Category: {product.productType.candyCategory} </div>
+                        </section>
+                    }
+                )
+                :
+                filteredProducts.map(
+                    (product) => {
+                        return <section className="product" key={`product--${product.id}`}>
+                            <div>Name: {product.productName}</div>
+                            <div>Price: {product.productPrice}</div>
                         </section>
                     }
                 )
