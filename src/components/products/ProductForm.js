@@ -6,13 +6,11 @@ export const ProductForm = () => {
         TODO: Add the correct default properties to the
         initial state object
     */
-    const [products, update] = useState({
+    const [product, update] = useState({
         productName: "",
         productPrice: parseFloat(0),
         productTypeId: parseInt(0)
     })
-
-    // const ProductDropDown = () => {
 
     const [productTypes, setProductType] = useState([])
     const [productTypeId, setProductTypeId] = useState(0)
@@ -42,8 +40,8 @@ export const ProductForm = () => {
 
         // TODO: Create the object to be saved to the API
         const productToSendToAPI = {
-            productName: products.productName,
-            productPrice: parseFloat(products.productPrice, 2),
+            productName: product.productName,
+            productPrice: parseFloat(product.productPrice, 2),
             productTypeId: productTypeId
         }
 
@@ -72,10 +70,10 @@ export const ProductForm = () => {
                         type="text"
                         className="form-control"
                         placeholder="Name"
-                        value={products.productName}
+                        value={product.productName}
                         onChange={
                             (evt) => {
-                                const copy = {...products}
+                                const copy = {...product}
                                 copy.productName = evt.target.value
                                 update(copy)
                             }
@@ -86,10 +84,10 @@ export const ProductForm = () => {
                 <div className="form-group">
                     <label htmlFor="productPrice">Product Price:</label>
                     <input type="number"
-                        value={products.productPrice}
+                        value={product.productPrice}
                         onChange={
                             (evt) => {
-                                const copy = {...products}
+                                const copy = {...product}
                                 copy.productPrice = evt.target.value
                                 update(copy)
                             }
