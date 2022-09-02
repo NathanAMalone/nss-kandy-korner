@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./products.css"
 
-export const ProductList = ({ searchTermState }) => {
+export const ProductSearchList = ({ searchTermState }) => {
     const [products, setProducts] = useState([])
     const [filteredProducts, setFiltered] = useState([])
     const [topPriced, setTopPriced] = useState(false)
@@ -73,7 +73,6 @@ export const ProductList = ({ searchTermState }) => {
                         return <section className="product" key={`product--${product.id}`}>
                             <div>Name: {product.productName}</div>
                             <div>Price: {product.productPrice}</div>
-                            <div>Category: {product.productType.candyCategory} </div>
                         </section>
                     }
                 )
