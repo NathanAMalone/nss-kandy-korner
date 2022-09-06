@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 
-export const Employee = ({ id, fullName, email }) => {
+export const Employee = ({ id, fullName, location, startDate, payRate }) => {
     return <section className="employee">
         <div>
-            <Link to={`/employees/${id}`}>Name: {fullName}</Link>
+        Name: {fullName}
         </div>
         <div>Location: {location}</div>
         <div>Start Date: {startDate}</div>

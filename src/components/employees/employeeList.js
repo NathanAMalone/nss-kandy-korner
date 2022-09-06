@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react"
 import { Employee } from "./Employee"
-import "./Employees.css"
+import "./employees.css"
 
 export const EmployeeList = () => {
     const [employees, setEmployees] = useState([])
+    const [locations, setLocations] = useState([])
+
 
     useEffect(
         () => {
-            fetch('http://localhost:8088/employees?_expand=user&isStaff=true')
+            fetch('http://localhost:8088/employees?_expand=user&_expand=location')
                 .then(response => response.json())
                 .then((employeeArray) => {
                     setEmployees(employeeArray)
@@ -20,8 +22,10 @@ export const EmployeeList = () => {
         {
             employees.map(employee => <Employee key={`employee--${employee.id}`}
                 id={employee.id} 
-                fullName={employee.fullName}
-                email={employee.email} />)    
+                fullName={employee.user.fullName}
+                location={employee.location.address}
+                startDate={employee.startDate}
+                payRate={employee.payRate} />)    
         }
     </article>
 }  
