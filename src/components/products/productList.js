@@ -55,11 +55,13 @@ export const ProductList = ({ searchTermState }) => {
     return <>
         
             <>
+
             <button   onClick={() => { setTopPriced(!topPriced) } } >
                 {topPriced
                 ? "All Prices"
                 : "Top Priced"}
                 </button>
+
             </>
                  
          
