@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { Customer } from "./Employee"
+import { Customer } from "./Customer"
 import "./customers.css"
 
-export const EmployeeList = () => {
+export const CustomerList = () => {
     const [customers, setCustomers] = useState([])
     
 
@@ -21,10 +21,10 @@ export const EmployeeList = () => {
     return <article className="customers">
         {
             customers.map(customer => <Customer key={`customer--${customer.id}`}
-                id={customer.id} 
+                id={customer.user.id} 
                 fullName={customer.user.fullName}
                 email={customer.user.email}
                  />)    
         }
     </article>
-}  
+}   

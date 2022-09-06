@@ -4,7 +4,6 @@ import "./employees.css"
 
 export const EmployeeList = () => {
     const [employees, setEmployees] = useState([])
-    const [locations, setLocations] = useState([])
 
 
     useEffect(

@@ -53,12 +53,17 @@ export const ProductList = ({ searchTermState }) => {
     )
 
     return <>
-        {
+        
             <>
-            <button   onClick={() => { setTopPriced(true) } } >Top Priced</button>
-            <button   onClick={() => { setTopPriced(false) } } >All Prices</button>
+            <button   onClick={() => { setTopPriced(!topPriced) } } >
+                {topPriced
+                ? "All Prices"
+                : "Top Priced"}
+                </button>
             </>
-        }
+                 
+         
+         
         {
             kandyUserObject.staff
             ?
