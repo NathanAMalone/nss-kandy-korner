@@ -63,7 +63,7 @@ export const NewEmployees = () => {
         })
             .then(response => response.json())
             .then(parsedResponse => {
-                employeeToSendToAPI.userid = parsedResponse.id
+                employeeToSendToAPI.userId = parsedResponse.id
                 
                 return fetch("http://localhost:8088/employees", {
                     method: "POST",
