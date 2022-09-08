@@ -24,6 +24,9 @@ export const CustomerDetails = () => {
      const handleSaveButtonClick = (event) => {
         event.preventDefault()
 
+        const numberToSendToAPI = {
+            loyaltyNumber: customer.loyaltyNumber
+        }
         /*
             TODO: Perform the PUT fetch() call here to update the profile.
             Navigate user to home page when done.
@@ -33,12 +36,12 @@ export const CustomerDetails = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(customer)
+            body: JSON.stringify(numberToSendToAPI)
         })
             .then(response => response.json())
-            // .then(() => {
-            //     setFeedback("Employee profile successfully saved")
-            // })
+            .then(() => {
+                window.alert("Loyalty number successfully saved")
+            })
 
     }
 

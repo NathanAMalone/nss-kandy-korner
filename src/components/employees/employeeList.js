@@ -4,6 +4,16 @@ import "./employees.css"
 
 export const EmployeeList = () => {
     const [employees, setEmployees] = useState([])
+    const [users, setUsers] = useState([])
+
+    const getAllEmployees = () => {
+        fetch('http://localhost:8088/employees?_expand=user&_expand=location')
+                    .then(response => response.json())
+                    .then((employeeArray) => {
+                        setEmployees(employeeArray)
+                    })
+    }
+    
 
 
     useEffect(
@@ -16,6 +26,18 @@ export const EmployeeList = () => {
         },
         []
     )
+    
+    UseEffect(
+        () => {
+            fetch('http://localhost:8088/users')
+                .then(response => response.json())
+                .then((userArray) => {
+                    setUsers(userArray)
+                })
+        },
+        []
+    )
+    
 
     return <article className="employees">
         {
@@ -24,7 +46,9 @@ export const EmployeeList = () => {
                 fullName={employee.user.fullName}
                 location={employee.location.address}
                 startDate={employee.startDate}
-                payRate={employee.payRate} />)    
+                payRate={employee.payRate} 
+                employee={employee}
+                getAllEmployees={getAllEmployees}/>)    
         }
     </article>
 }  
