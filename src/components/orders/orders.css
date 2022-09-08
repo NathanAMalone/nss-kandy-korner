@@ -3,16 +3,9 @@
     flex-direction: column;
 }
 
-.product {
+.purchase {
     background-color: rgb(255, 166, 0);
     border: 2px dotted rgb(134, 134, 219);
     padding: 0.7rem;
     margin: 0.5rem 0;
-    display: flex;
-    justify-content: space-between;
 }
-
-.productSearch {
-    width: 25rem;
-}
-
