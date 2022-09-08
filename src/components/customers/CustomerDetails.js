@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { UpdateLoyaltyNumber } from "./UpdateLoyaltyNumber"
 
 export const CustomerDetails = () => {
     const {customerId} = useParams()
-    const [customer, updateCustomer] = useState()
+    const [customer, updateCustomer] = useState({
+        loyaltyNumber: 0
+
+    })
 
      useEffect(
         () => {
@@ -16,11 +20,40 @@ export const CustomerDetails = () => {
         },
         [customerId]
      )
+    
+     const handleSaveButtonClick = (event) => {
+        event.preventDefault()
 
+        /*
+            TODO: Perform the PUT fetch() call here to update the profile.
+            Navigate user to home page when done.
+        */
+        return fetch (`http://localhost:8088/customers/${customer.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(customer)
+        })
+            .then(response => response.json())
+            // .then(() => {
+            //     setFeedback("Employee profile successfully saved")
+            // })
 
-    return <section className="customer">
+    }
+
+    return <form className="customer_profile">
+        <h2 className="profile__title">Update Customer Profile</h2>
+        <section className="customer">
         <header className="customer_header">{customer?.user?.fullName}</header>
         <div>Email: {customer?.user?.email}</div>
-        <footer className="employee_footer">Loyalty Number: {customer?.loyaltyNumber}</footer>
+        <div className="cust-loyal-number">
+          <UpdateLoyaltyNumber 
+                loyaltyNumber={customer.loyaltyNumber} 
+                customer={customer}
+                updateCustomer={updateCustomer}
+                handleSaveButtonClick={handleSaveButtonClick}/>
+        </div>
     </section>
+    </form>
 }
