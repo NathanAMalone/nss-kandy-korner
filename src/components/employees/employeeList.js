@@ -4,7 +4,6 @@ import "./employees.css"
 
 export const EmployeeList = () => {
     const [employees, setEmployees] = useState([])
-    const [users, setUsers] = useState([])
 
     const getAllEmployees = () => {
         fetch('http://localhost:8088/employees?_expand=user&_expand=location')
@@ -22,17 +21,6 @@ export const EmployeeList = () => {
                 .then(response => response.json())
                 .then((employeeArray) => {
                     setEmployees(employeeArray)
-                })
-        },
-        []
-    )
-    
-    UseEffect(
-        () => {
-            fetch('http://localhost:8088/users')
-                .then(response => response.json())
-                .then((userArray) => {
-                    setUsers(userArray)
                 })
         },
         []

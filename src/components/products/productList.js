@@ -7,7 +7,6 @@ export const ProductList = ({ searchTermState }) => {
     const [products, setProducts] = useState([])
     const [filteredProducts, setFiltered] = useState([])
     const [topPriced, setTopPriced] = useState(false)
-    const {customerId} = useParams()
     const [customer, updateCustomer] = useState({
         id: 0,
         loyaltyNumber: 0
@@ -28,27 +27,54 @@ export const ProductList = ({ searchTermState }) => {
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/customers/${customerId}`)
+            fetch(`http://localhost:8088/customers`)
                 .then(response => response.json())
-                .then((data) => {
-                    const singleCustomer = data[0]
-                    updateCustomer(singleCustomer)
+                .then((customerArray) => {
+                    const foundCustomer = customerArray.find(customer => {
+                        return customer.userId === kandyUserObject.id
+
+                    })
+                    updateCustomer(foundCustomer)
                 })
         },
-        [customerId]
+        []
     )
     
     useEffect(
         () => {
-            fetch(`http://localhost:8088/products/${productId}`)
+            fetch(`http://localhost:8088/products/${product.id}`)
                 .then(response => response.json())
-                .then((data) => {
-                    const singleProduct = data[0]
-                    updateProduct(singleProduct)
+                .then((productArray) => {
+                    updateProduct(productArray)
                 })
         },
-        [productId]
+        []
     )
+    const handleSaveButtonClick = (event) => {
+        event.preventDefault()
+        
+        const productToSendToAPI = {
+            customerId: customer.id,
+            productId: parseInt(event.target.value),
+            amountPurchased: 1
+        }
+        /*
+            TODO: Perform the PUT fetch() call here to update the profile.
+            Navigate user to home page when done.
+        */
+        return fetch (`http://localhost:8088/purchases`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(productToSendToAPI)
+        })
+            .then(response => response.json())
+            .then(() => {
+                window.alert("Purchase saved to My Orders")
+            })
+
+    }
     
     useEffect(
         () => {
@@ -89,31 +115,6 @@ export const ProductList = ({ searchTermState }) => {
         [products]
     )
 
-    const handleSaveButtonClick = (event) => {
-        event.preventDefault()
-        
-        const productToSendToAPI = {
-            customerId: customer.id,
-            productId: product.id,
-            amountPurchased: 1
-        }
-        /*
-            TODO: Perform the PUT fetch() call here to update the profile.
-            Navigate user to home page when done.
-        */
-        return fetch (`http://localhost:8088/purchases`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(productToSendToAPI)
-        })
-            .then(response => response.json())
-            .then(() => {
-                window.alert("Purchase saved to My Orders")
-            })
-
-    }
 
     return <>
         
@@ -156,9 +157,10 @@ export const ProductList = ({ searchTermState }) => {
                                 <div>Price: {product.productPrice}</div>
                             </section>
                             <button
-                    onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                    className="btn btn-primary">
-                    Purchase
+                            value={product.id}
+                            onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+                            className="btn btn-primary">
+                             Purchase
                 </button>
                         </section>
                     }
