@@ -9,6 +9,8 @@ export const CustomerDetails = () => {
 
     })
 
+    const localKandyUser = localStorage.getItem("kandy_user")
+    const kandyUserObject = JSON.parse(localKandyUser)
      useEffect(
         () => {
             fetch(`http://localhost:8088/customers?_expand=user&userId=${customerId}`)
@@ -25,7 +27,8 @@ export const CustomerDetails = () => {
         event.preventDefault()
 
         const numberToSendToAPI = {
-            loyaltyNumber: customer.loyaltyNumber
+            loyaltyNumber: customer.loyaltyNumber,
+            userId: customer.user.id
         }
         /*
             TODO: Perform the PUT fetch() call here to update the profile.

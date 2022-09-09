@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
-import { EmployeeList } from "./employeeList"
 
 
 export const Employee = ({ id, fullName, location, startDate, payRate, employee, getAllEmployees }) => {
-    const navigate = useNavigate()
 
     const deleteButton = () => {
     
             return <button onClick={() => {
-                fetch(`http://localhost:8088/employees/${employee.id}?_expand=user`, {
+                fetch(`http://localhost:8088/employees/${employee.id}`, {
                     method: "DELETE"
                 })
+                    .then(() => {
+                        fetch(`http://localhost:8088/users/${employee.user.id}`, {
+                            method: "DELETE"
+                    })
+                    })
                     .then(() => {
                         getAllEmployees()
                     })
